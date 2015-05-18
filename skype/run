@@ -1,0 +1,4 @@
+#!/bin/bash
+xhost local:root
+mkdir -p ~/.Skype
+docker run --rm=true -u="skype" -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.Skype:/home/skype/.Skype:rw -v /dev/snd:/dev/snd --privileged --name skype skype
