@@ -1,0 +1,5 @@
+#!/bin/bash
+export DISPLAY=:0 
+xhost local:root > /dev/null
+mkdir -p ~/drakon
+docker run --rm=true -ti -v $HOME/drakon:/workspace -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY drakon
