@@ -1,0 +1,7 @@
+#!/bin/bash
+export DISPLAY=:0 
+xhost local:root
+mkdir -p ~/.mozilla
+docker rm -f firefox 2>/dev/null || true
+docker run --rm=true -u="firefox" -v $HOME/Downloads:/home/firefox/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.mozilla:/home/firefox/.mozilla:rw -v /dev/snd:/dev/snd --privileged --name firefox firefox
+docker rm -f firefox 2>/dev/null || true
