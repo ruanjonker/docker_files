@@ -1,4 +1,7 @@
 #!/bin/bash
-DISPLAY=:0 xhost local:root
+export DISPLAY=:0 
+xhost local:root
 mkdir -p ~/.Skype
-docker run --rm=true -u="skype" -ti -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.Skype:/home/skype/.Skype:rw -v /dev/snd:/dev/snd --privileged --name skype skype
+docker rm -f skype 2>/dev/null || true
+docker run --rm=true -u="skype" -v $HOME/Downloads:/home/skype/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.Skype:/home/skype/.Skype:rw -v /dev/snd:/dev/snd --privileged --name skype skype
+docker rm -f skype 2>/dev/null || true
