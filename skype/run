@@ -3,5 +3,5 @@ export DISPLAY=:0
 xhost local:root
 mkdir -p ~/.Skype
 docker rm -f skype 2>/dev/null || true
-docker run --rm=true -u="skype" -v $HOME/Downloads:/home/skype/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.Skype:/home/skype/.Skype:rw -v /dev/snd:/dev/snd --privileged --name skype skype
+docker run --rm=true -u="skype" -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $HOME/Downloads:/home/skype/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.Skype:/home/skype/.Skype:rw -v /dev/snd:/dev/snd --privileged --name skype skype
 docker rm -f skype 2>/dev/null || true
