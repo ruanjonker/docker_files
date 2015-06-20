@@ -1,0 +1,23 @@
+FROM debian:jessie
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+
+RUN apt-get install -y openjdk-7-jre
+
+RUN mkdir -p /plantuml/in
+RUN mkdir -p /plantuml/out
+
+RUN useradd -m -d /plantuml --uid ${MY_UID} -s /bin/bash plantuml
+
+ADD http://downloads.sourceforge.net/project/plantuml/plantuml.jar?r=http%3A%2F%2Fplantuml.sourceforge.net%2Fdownload.html&ts=1434630919&use_mirror=tenet /plantuml/bin/plantuml.jar
+
+RUN chown -R plantuml:plantuml /plantuml
+
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /plantuml
+CMD java -jar bin/plantuml.jar -o /plantuml/out /plantuml/in
+
