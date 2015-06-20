@@ -8,6 +8,10 @@ Example
 ========
 
 ```bash
+    #Build the image ... see Dockerfile.template
+    ./build
+
+    #create two simple sequence diagrams
     echo -e "@startuml\nbob->amy:Hi\n@enduml" > example1.txt
     echo -e "@startuml\namy->bob:iH\n@enduml" > example2.txt
 
