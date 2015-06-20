@@ -15,9 +15,9 @@ xhost local:root > /dev/null
 
 if [ -f $SRC ]; then
     FILENAME=$(basename $SRC)
-    V_IN="$SRC:/plantuml/in/$FILENAME"
-elif [ -d SRC ]; then
-    V_IN="$SRC:/plantuml/in"
+    V_IN="$(realpath $SRC):/plantuml/in/$FILENAME"
+elif [ -d $SRC ]; then
+    V_IN="$(realpath $SRC):/plantuml/in"
 else 
     echo "Must specify an input_file_or_dir that exists."
     exit 1
@@ -26,6 +26,4 @@ fi
 V_OUT="$(realpath ${OUT_DIR}):/plantuml/out"
 
 docker run --rm=true -t -i -u $(id -u ${USER}) -v $V_IN  -v $V_OUT -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY plantuml
-
-echo $(realpath ${OUT_DIR})
 
