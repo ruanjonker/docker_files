@@ -2,4 +2,5 @@
 export DISPLAY=:0 
 xhost local:root
 mkdir -p ~/.mozilla
-docker run --rm=true -u="firefox" -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $HOME/Downloads:/home/firefox/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.mozilla:/home/firefox/.mozilla:rw -v /dev/snd:/dev/snd --privileged firefox "$@"
+DOCKER_HOST=`/sbin/ifconfig docker0 | awk -F'inet addr:| Bcast:' '/inet addr:/ {print $2}'`
+docker run --rm=true -u="firefox" --add-host=docker.host:${DOCKER_HOST} -v /etc/localtime:/etc/localtime:ro -v /etc/timezone:/etc/timezone:ro -v $HOME/Downloads:/home/firefox/Downloads -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=unix$DISPLAY -v $HOME/.mozilla:/home/firefox/.mozilla:rw -v /dev/snd:/dev/snd --privileged firefox "$@"
