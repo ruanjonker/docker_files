@@ -8,7 +8,7 @@ RUN echo "deb http://security.debian.org/ testing/updates main" >> /etc/apt/sour
 RUN echo "deb http://httpredir.debian.org/debian/ testing-updates main" >> /etc/apt/sources.list
 RUN echo "deb http://www.deb-multimedia.org testing main non-free" >> /etc/apt/sources.list
 
-RUN apt-get update #2015-08-08 ...
+RUN apt-get update #2015-08-28
 RUN apt-get install -y apt-utils
 
 RUN apt-get install --force-yes -y deb-multimedia-keyring
@@ -51,7 +51,7 @@ RUN apt-get install -y flashplugin-nonfree
 RUN apt-get install -y flashplugin-nonfree-extrasound
 
 RUN apt-get install -y bzip2
-ADD https://download.mozilla.org/?product=firefox-40.0-SSL&os=linux64&lang=en-US /opt/firefox.tar.bz2
+ADD https://download.mozilla.org/?product=firefox-40.0.3-SSL&os=linux64&lang=en-US /opt/firefox.tar.bz2
 
 RUN cd /opt/ && tar -xjf firefox.tar.bz2
 RUN ln -s /opt/firefox/firefox /usr/bin/firefox
