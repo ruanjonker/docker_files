@@ -1,2 +1,0 @@
-#!/bin/bash
-docker build -t ruanjonker/erlang:otp_18.0_ubuntu_14.04 .
