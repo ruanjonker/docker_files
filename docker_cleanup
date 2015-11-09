@@ -1,3 +1,25 @@
 #!/bin/bash
-docker rm $( docker ps -f "status=exited" -q )
-docker rmi $( docker images -f "dangling=true" -q )
+echo "Docker Containers/Images Cleanup"
+df -h
+echo
+echo
+echo
+echo
+echo "Cleaning containers with state 'exited'"
+docker ps -a -f "status=exited" -q | while read i; do xargs docker rm $i; done
+
+echo "Cleaning containers with state 'dead'"
+docker ps -a -f "status=dead" -q | while read i; do docker rm $i; done
+
+echo "Cleaning dangling images"
+docker images -f "dangling=true" -q | while read i; do  docker rmi $i; done
+
+echo
+echo
+echo
+echo
+df -h
+
+echo "Done"
+echo
+echo

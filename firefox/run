@@ -2,7 +2,7 @@
 export DISPLAY=:0
 xhost local:root
 mkdir -p ~/.mozilla
-DOCKER_HOST=`/sbin/ifconfig docker0 | awk -F'inet addr:| Bcast:' '/inet addr:/ {print $2}'`
+DOCKER_HOST=`/sbin/ifconfig docker0 | awk -F'inet | netmask' '/inet / {print $2}'`
 docker run \
     --rm=true \
     -u="firefox" \
@@ -13,5 +13,7 @@ docker run \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
     -v $HOME/.mozilla:/home/firefox/.mozilla:rw \
-    --device=/dev/snd:/dev/snd:rwm --device=/dev/video0:/dev/video0:rwm  \
+    -v /dev/snd:/dev/snd \
+    -v /dev/video0:/dev/video0  \
+    --privileged \
     firefox "$@"
