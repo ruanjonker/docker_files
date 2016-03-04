@@ -1,4 +1,2 @@
 #!/bin/bash
-export DOCKER_DEV_UID=$(id -u ${USER})
-cat Dockerfile.template | envsubst | docker build -t skype -
-unset DOCKER_DEV_UID
+docker build --build-arg RUN_AS_UID="$(id -u)" -t skype .
