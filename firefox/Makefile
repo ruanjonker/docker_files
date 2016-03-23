@@ -8,7 +8,7 @@ RUNASUSER = $(shell id -u $(USER))
 build: .Dockerfile.built
 
 firefox.tar.bz2:
-	curl -sS https://download-installer.cdn.mozilla.net/pub/firefox/releases/42.0/linux-x86_64/en-US/firefox-42.0.tar.bz2 > firefox.tar.bz2
+	curl -sSL -o firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-45.0.1-SSL&os=linux64&lang=en-US"
 
 .Dockerfile.built: firefox.tar.bz2 Dockerfile
 	@docker build --pull=true --build-arg runasuser=$(RUNASUSER) -t firefox . && touch .Dockerfile.built

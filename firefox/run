@@ -2,16 +2,15 @@
 export DISPLAY=:0
 xhost local:root
 mkdir -p ~/.mozilla
-DOCKER_HOST=`/sbin/ifconfig docker0 | awk -F'inet | netmask' '/inet / {print $2}'`
 docker run \
     --rm=true \
     -u="firefox" \
-    --add-host=docker.host:${DOCKER_HOST} \
+    --add-host=docker.host:$(/sbin/ifconfig docker0 | awk -F'inet | netmask' '/inet / {print $2}') \
     -v /etc/localtime:/etc/localtime:ro \
     -v /etc/timezone:/etc/timezone:ro \
-    -v $HOME/Downloads:/home/firefox/Downloads \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
+    -v $HOME/Downloads:/home/firefox/Downloads:rw \
     -v $HOME/.mozilla:/home/firefox/.mozilla:rw \
     -v /dev/snd:/dev/snd \
     -v /dev/video0:/dev/video0  \

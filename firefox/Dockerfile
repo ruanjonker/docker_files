@@ -6,10 +6,11 @@ RUN    echo "deb http://httpredir.debian.org/debian/ testing main contrib non-fr
     && echo "deb http://security.debian.org/ testing/updates main" >> /etc/apt/sources.list \
     && echo "deb http://httpredir.debian.org/debian/ testing-updates main" >> /etc/apt/sources.list \
     && echo "deb http://www.deb-multimedia.org testing main non-free" >> /etc/apt/sources.list \
+    && apt-get clean \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install --force-yes -y deb-multimedia-keyring \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated deb-multimedia-keyring \
     && apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         libasound2  \
         libatk1.0-0 libc6  \
         libcairo2  \
@@ -30,7 +31,7 @@ RUN    echo "deb http://httpredir.debian.org/debian/ testing main contrib non-fr
         libsqlite3-0  \
         libstartup-notification0  \
         libstdc++6  \
-        libvpx2  \
+        libvpx3  \
         libx11-6  \
         libxcomposite1  \
         libxdamage1  \
